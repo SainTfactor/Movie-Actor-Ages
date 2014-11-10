@@ -15,7 +15,7 @@ I am pulling the movie list from [Google's movie page](http://google.com/movies)
 Pulling List of Actors in Said Movie
 ------------------------------------
 
-[TODO]
+The list of actors is pulled in from freebase.  Some of the new releases actually haven't made it into freebase yet, so the list is going to be incomplete.  I had originally thought to use the imdb api to pull the actors, but they only serve you the top 4.  I could have scrapped the imdb page itself, but freebase had most of the information, so it seemed like overkill to try and parse through imdb for the information.
 
 Getting the Actors Ages in Said Movie
 -------------------------------------
