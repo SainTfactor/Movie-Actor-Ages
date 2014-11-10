@@ -28,7 +28,7 @@ $(function() {
             }
         }
         
-        console.log(arrayOfMovies);
+        //console.log(arrayOfMovies);
     });
     
     /*$.getJSON("http://moviefone.com/showtimes?locationQuery=36830", function(response) {

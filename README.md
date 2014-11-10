@@ -8,7 +8,9 @@ The project will be pure javascript just to keep things simple.  I intend to hos
 Pulling List of Current Movies
 ------------------------------
 
-[TODO]
+I used a nifty library developed by [James Padolsey](http://james.padolsey.com) to allow my code to run cross domain Ajax.  It uses a service that Yahoo offers to parse cross domain requests and forward you the responses.
+
+I am pulling the movie list from [Google's movie page](http://google.com/movies) and parse out the movies that appear in theaters near the user.  I did it this way because in looking at the list of all movies that are currently in theaters, I found that many of the movies were limited release or not showing in the United States.  I thought I should only show movies that are relavant to the current user.
 
 Pulling List of Actors in Said Movie
 ------------------------------------
