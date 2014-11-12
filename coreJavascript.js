@@ -55,7 +55,8 @@ $(function() {
 		            }
 
 		            if (!isInArray) {
-		                $('<div>', { text: movieName, id: movieName.replace(/\s+|\.+|\,+/g, "") }).appendTo(document.body);
+		                //$('<div>', { text: movieName, id: movieName.replace(/\s+|\.+|\,+/g, "") }).appendTo(document.body);
+		                $('<div id="'+movieName.replace(/\s+|\.+|\,+/g, "")+'"><span>'+movieName+'</span></div>').appendTo(document.body);
 
 		                arrayOfMovies[arrayOfMovies.length] = [movieName, imdbPage];
 		            }
@@ -79,7 +80,8 @@ $(function() {
 		            }
 
 		            if (!isInArray) {
-		                $('<div>', { text: movieName, id: movieName.replace(/\s+|\.+|\,+/g, "") }).appendTo(document.body);
+		                //$('<div>', { text: movieName, id: movieName.replace(/\s+|\.+|\,+/g, "") }).appendTo(document.body);
+		                $('<div id="'+movieName.replace(/\s+|\.+|\,+/g, "")+'"><span>'+movieName+'</span></div>').appendTo(document.body);
 
 		                arrayOfMovies[arrayOfMovies.length] = [movieName, imdbPage];
 		            }
@@ -104,7 +106,7 @@ $(function() {
 
 	            // pull out the relevant data
 	            var movieName = decodeURIComponent(decodeURIComponent(this.url).split("?name=")[1].split("\"")[0].replace(/\+/g, " "));
-	            var movieID = movieName.replace(/\s+|\.+|\,+/g, "")
+	            var movieID = movieName.replace(/\s+|\.+|\,+/g, "");
 	            var castList = $($.parseHTML(newData.results[0].replace(/src/g, "src-none"))).find("table.cast_list")[0];				
 
 
@@ -112,19 +114,44 @@ $(function() {
 	            $("#" + movieID).html($("#" + movieID).html() + "<table style='display:none;'>" + castList.innerHTML + "</table>");
 				$("#" + movieID).find(".primary_photo").remove();
 				$("#" + movieID).find(".ellipsis").remove();
+				$("#" + movieID).find(".character div p").remove();
+				$("#" + movieID).find("tbody tr:not([class])").remove();
+
 
 	            // fix the links
-	            $("#" + movieID + " a").attr("href", "http://www.imdb.com/" + $("#" + movieID + " a").attr("href"))
+	            $("#" + movieID + " a").attr("href", "http://www.imdb.com" + $("#" + movieID + " a").attr("href"))
 
-				getAges();
+				getAges(movieID);
 
 	        });
 	    }
 	}
 
-	function getAges()
-	{
-	            // TODO: get the dates of birth here
+	function getAges(movieIDo)
+	{		
+		for(var i = 0; i < $("#" + movieIDo + " td.itemprop").length; i++)
+		{
+			var link = $($("#" + movieIDo + " td.itemprop")[i]).find("a").attr("href").split("?")[0];
+
+	        $.ajax({
+	            url: link,
+	            type: "GET",
+	            data: { "name": movieIDo + "--" + i },
+	        })
+	        .done(function (newData) {
+				var parsedHTML = $($.parseHTML(newData.results[0].replace(/src/g, "src-none")));
+
+	            var movieName = decodeURIComponent(decodeURIComponent(this.url).split("?name=")[1].split("\"")[0].split("--")[0].replace(/\+/g, " "));
+	            var movieID = movieName.replace(/\s+|\.+|\,+/g, "");
+	            var actorIndex = decodeURIComponent(decodeURIComponent(this.url).split("?name=")[1].split("\"")[0].split("--")[1]);
+	            var dateOfBirth = $(parsedHTML.find('a[href*="/search/name?birth_monthday"]')[0]).html();	
+	            var yearOfBirth = $(parsedHTML.find('a[href*="/search/name?birth_year"]')[0]).html();	
+				var dobString = dateOfBirth + ", " + yearOfBirth;
+				var age = Math.floor(((new Date()) - (new Date(dobString)))/31536000000) 
+				
+				$('<td>', { text: dateOfBirth, class: "actorAge" }).appendTo($($("#" + movieID + " td.itemprop")[actorIndex]).parent())
+			});
+		}				
 	}
 
 });
