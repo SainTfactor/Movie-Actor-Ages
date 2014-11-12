@@ -105,10 +105,13 @@ $(function() {
 	            // pull out the relevant data
 	            var movieName = decodeURIComponent(decodeURIComponent(this.url).split("?name=")[1].split("\"")[0].replace(/\+/g, " "));
 	            var movieID = movieName.replace(/\s+|\.+|\,+/g, "")
-	            var castList = $($.parseHTML(newData.results[0])).find("table.cast_list")[0];
+	            var castList = $($.parseHTML(newData.results[0].replace(/src/g, "src-none"))).find("table.cast_list")[0];				
+
 
 	            // add the tables to the page
 	            $("#" + movieID).html($("#" + movieID).html() + "<table style='display:none;'>" + castList.innerHTML + "</table>");
+				$("#" + movieID).find(".primary_photo").remove();
+				$("#" + movieID).find(".ellipsis").remove();
 
 	            // fix the links
 	            $("#" + movieID + " a").attr("href", "http://www.imdb.com/" + $("#" + movieID + " a").attr("href"))
