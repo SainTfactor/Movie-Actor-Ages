@@ -17,6 +17,8 @@ Pulling List of Actors in Said Movie
 
 The list of actors is pulled in from IMDb.  I had originally thought to use the IMDb API to pull the actors, but they only serve you the top 4.  As such, I had to scrape the IMDb page directly.  Luckily, Google's movie list (discussed above) included direct links to the IMDb page for the movie.  It was a small thing to get from there to the cast list.
 
+Note: If you use this outside of the US, it's a bit hairy.  Because the movies have translated names, Google doesn't tie them to the appropriate IMDb page.  I may go back and add some stuff to check for that, but since it works in the US at the moment I'm putting that on the back burner.
+
 Getting the Actors Ages in Said Movie
 -------------------------------------
 
