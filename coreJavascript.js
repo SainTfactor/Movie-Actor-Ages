@@ -43,23 +43,26 @@ $(function() {
 		            var imdbPage; // google was nice enough to provide us with direct links to the imdb page.
 		            var movieName = $(movie).find(".name a")[0].innerHTML;
 
-		            if ($(movie).find(".info a")[0].innerHTML == "IMDb")
-		                imdbPage = $($(movie).find(".info a")[0]).attr("href").split("?q=")[1].split("&")[0] + "fullcredits";
-		            else
-		                imdbPage = $($(movie).find(".info a")[1]).attr("href").split("?q=")[1].split("&")[0] + "fullcredits";
+					if($(movie).find(".info a")[0] != undefined)
+					{
+				        if ($(movie).find(".info a")[0].innerHTML == "IMDb")
+				            imdbPage = $($(movie).find(".info a")[0]).attr("href").split("?q=")[1].split("&")[0] + "fullcredits";
+				        else
+				            imdbPage = $($(movie).find(".info a")[1]).attr("href").split("?q=")[1].split("&")[0] + "fullcredits";
 
-		            //test and see if we already have them in the list
-		            var isInArray = false;
-		            for (var k = 0; k < arrayOfMovies.length; k++) {
-		                if (arrayOfMovies[k][0] == movieName) isInArray = true;
-		            }
+				        //test and see if we already have them in the list
+				        var isInArray = false;
+				        for (var k = 0; k < arrayOfMovies.length; k++) {
+				            if (arrayOfMovies[k][0] == movieName) isInArray = true;
+				        }
 
-		            if (!isInArray) {
-		                //$('<div>', { text: movieName, id: movieName.replace(/\s+|\.+|\,+/g, "") }).appendTo(document.body);
-		                $('<div id="'+movieName.replace(/\s+|\.+|\,+/g, "")+'"><span>'+movieName+'</span></div>').appendTo(document.body);
+				        if (!isInArray) {
+				            //$('<div>', { text: movieName, id: movieName.replace(/\s+|\.+|\,+/g, "") }).appendTo(document.body);
+				            $('<div id="'+movieName.replace(/\s+|\.+|\,+/g, "")+'"><span>'+movieName+'</span></div>').appendTo(document.body);
 
-		                arrayOfMovies[arrayOfMovies.length] = [movieName, imdbPage];
-		            }
+				            arrayOfMovies[arrayOfMovies.length] = [movieName, imdbPage];
+				        }
+					}
 		        }
 		        // same as above but for the right column
 		        for(var j = 0; j < $(theater).find(".showtimes .show_right .movie").length; j++)
@@ -68,23 +71,26 @@ $(function() {
 		            var imdbPage; // google was nice enough to provide us with direct links to the imdb page.
 		            var movieName = $(movie).find(".name a")[0].innerHTML;
 
-		            if ($(movie).find(".info a")[0].innerHTML == "IMDb")
-		                imdbPage = $($(movie).find(".info a")[0]).attr("href").split("?q=")[1].split("&")[0] + "fullcredits";
-		            else
-		                imdbPage = $($(movie).find(".info a")[1]).attr("href").split("?q=")[1].split("&")[0] + "fullcredits";
+					if($(movie).find(".info a")[0] != undefined)
+					{
+				        if ($(movie).find(".info a")[0].innerHTML == "IMDb")
+				            imdbPage = $($(movie).find(".info a")[0]).attr("href").split("?q=")[1].split("&")[0] + "fullcredits";
+				        else
+				            imdbPage = $($(movie).find(".info a")[1]).attr("href").split("?q=")[1].split("&")[0] + "fullcredits";
 
-		            //test and see if we already have them in the list
-		            var isInArray = false;
-		            for (var k = 0; k < arrayOfMovies.length; k++) {
-		                if (arrayOfMovies[k][0] == movieName) isInArray = true;
-		            }
+				        //test and see if we already have them in the list
+				        var isInArray = false;
+				        for (var k = 0; k < arrayOfMovies.length; k++) {
+				            if (arrayOfMovies[k][0] == movieName) isInArray = true;
+				        }
 
-		            if (!isInArray) {
-		                //$('<div>', { text: movieName, id: movieName.replace(/\s+|\.+|\,+/g, "") }).appendTo(document.body);
-		                $('<div id="'+movieName.replace(/\s+|\.+|\,+/g, "")+'"><span>'+movieName+'</span></div>').appendTo(document.body);
+				        if (!isInArray) {
+				            //$('<div>', { text: movieName, id: movieName.replace(/\s+|\.+|\,+/g, "") }).appendTo(document.body);
+				            $('<div id="'+movieName.replace(/\s+|\.+|\,+/g, "")+'"><span>'+movieName+'</span></div>').appendTo(document.body);
 
-		                arrayOfMovies[arrayOfMovies.length] = [movieName, imdbPage];
-		            }
+				            arrayOfMovies[arrayOfMovies.length] = [movieName, imdbPage];
+				        }
+					}
 		        }
 		    } 
 
@@ -119,7 +125,7 @@ $(function() {
 
 
 	            // fix the links
-	            $("#" + movieID + " a").attr("href", "http://www.imdb.com" + $("#" + movieID + " a").attr("href"))
+	            $("#" + movieID).html($("#" + movieID).html().replace(/\/name\//g,"http://www.imdb.com/name/"));
 
 				getAges(movieID);
 
@@ -149,9 +155,22 @@ $(function() {
 				var dobString = dateOfBirth + ", " + yearOfBirth;
 				var age = Math.floor(((new Date()) - (new Date(dobString)))/31536000000) 
 				
-				$('<td>', { text: dateOfBirth, class: "actorAge" }).appendTo($($("#" + movieID + " td.itemprop")[actorIndex]).parent())
+				if(!isNaN(age)){
+					$('<td>', { text: age, class: "actorAge" }).appendTo($($("#" + movieID + " td.itemprop")[actorIndex]).parent());
+				}
+
+				runningAverageAge(movieID);
 			});
 		}				
+	}
+
+	function runningAverageAge(movieID)
+	{
+		var avgAge = 0;
+		for(var i = 1; i < ($("#" + movieID + " table tr .actorAge").length); i++){
+			avgAge = ((avgAge * (i-1))/i) + (parseInt($("#" + movieID + " table tr .actorAge")[i].innerHTML)/i)
+		}
+		$("#" + movieID + " span:not([class])").html($("#" + movieID + " span:not([class])").html().split(" - ")[0] + " - " + avgAge);
 	}
 
 });
