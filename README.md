@@ -34,5 +34,6 @@ Things to Note
 * This project runs a bit slow.  It takes about 2 minutes to finish populating the whole list.  If I was going to put this in a production environment, I would create the web scraping portion of this project as a separate entity that stores the data it retrieves in a database which the front end application would call from.  That way the wait time fetching the information isn't felt by the end user.
 * This program is wholly dependent on Google Movies and IMDb for it's information.  If either site makes a change to how they display data or where they display data to, this project will break down.
 * This project won't scale very well.  I am already pushing what is acceptable in terms of the wait time for results, so if there is a week where 50 movies are showing in your area, don't expect snappy results from my code.
+* Google Movies is a bit finicky with zip codes (it thought my zip code was somewhere in Spain), so if you put in a zip code and everything breaks try another one in your area.  It's correct most of the time, just not always.
 
 
