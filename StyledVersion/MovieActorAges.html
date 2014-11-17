@@ -1,0 +1,113 @@
+<html>
+	<head>        
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <title>SainTfactor Studios</title>
+
+        <link rel="shortcut icon" href="/SainTfactorStudiosIP/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/SainTfactorStudiosIP/favicon.ico" type="image/x-icon">
+
+        <style>
+            body {
+                padding-top: 70px;
+            }
+
+            *
+            {
+                font-family:Batang;
+            }
+
+            .background-left
+            {
+                width: 50%;
+                position: fixed;
+                height: 100%;
+                left: 0px;
+                z-index: -1;
+
+                background-attachment:fixed;
+                background-image: url('/SainTfactorStudiosIP/WingedT.png');
+                background-repeat: no-repeat;
+                background-size: 18%;
+                background-position: left 6em;
+            }
+
+            .background-right
+            {
+                width: 50%;
+                position: fixed;
+                right: 0px;
+                height: 100%;
+                z-index: -1;
+
+                background-attachment:fixed;
+                background-image: url('/SainTfactorStudiosIP/WingedT.png');
+                background-repeat: no-repeat;
+                background-size: 18%;
+                background-position: right 6em;
+            }
+            .bs-callout {
+                padding: 20px;
+                margin: 20px 0;
+                border: 1px solid #bbb;
+                background-color: #fff;
+                border-left-width: 5px;
+                border-radius: 3px;
+            }
+            .bs-callout-info {
+                border-left-color: #fc993e;
+            }
+        </style>
+
+        <script src="/MainSiteHelpers/jquery/jquery-2.1.1.min.js"></script>
+
+        <link rel="stylesheet" href="/MainSiteHelpers/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/MainSiteHelpers/bootstrap/css/bootstrap-theme.min.css">
+        <script src="/MainSiteHelpers/bootstrap/js/bootstrap.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    
+        
+		<script src="Cross-Domain-Ajax.js"></script>
+		<script src="coreJavascript.js"></script>
+	</head>
+	<body>
+             
+    <div class="background-left"></div>
+    <div class="background-right"></div>
+    
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://SainTfactorStudios.com">SainTfactor Studios</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="http://SainTfactorStudios.com">Home</a></li>
+            <li><a href="/HeroGame">Herogame</a></li>
+            <li><a href="/jpAudio/stal.ogg">Minecraft Stal</a></li>   
+            <li><a href="/rentCalc.html">Rent Calculator</a></li>   
+            <li class="active"><a href="/Movie-Actor-Ages/MovieActorAges.html">Actor Age Calculator</a></li>  
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    
+    
+    <div class="container">
+      <div class="jumbotron">
+
+        <div id="zipParent" class="input-group col-md-6 col-md-offset-3">
+            <h2 style="text-align:center;">Enter Your Zip Code</h2>
+            <input type="text" style="margin: 30px 0 55px 0;" class="col-md-12 form-control" id="zipCode" maxlength="5" onkeypress="return isNumberKey(event)" />
+          </div>
+
+      </div>
+    </div>
+
+	</body>
+</html>
